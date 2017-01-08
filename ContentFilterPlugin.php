@@ -30,13 +30,13 @@ class ContentFilterPlugin extends Plugin
 	}
 	public function onStartNoticeSave($notice1){
 		if ($notice1->isLocal()){
-			$orig = $notice1->content;
+			$orig = $notice1->rendered;
 			$words = self::settings('filter');
 			//Begin filtering content.
 			foreach($words as $word){
 				$orig = str_replace($word, str_repeat("*", strlen($word)), $orig);
 			}
-			$notice1->content = $orig;
+			$notice1->rendered = $orig;
 		}
 		return true;
 	}
